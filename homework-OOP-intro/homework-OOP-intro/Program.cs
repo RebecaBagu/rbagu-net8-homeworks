@@ -1,9 +1,16 @@
-﻿//---------ex0---
-using System;
+﻿using System;
 
+
+
+
+//---------ex0---
 Game tetris = new Game("Tetris", "Alexey Pajitnov", new DateOnly(1985, 11, 10), "Puzzle");
 Console.WriteLine( tetris.GetName());
 Console.WriteLine();
+
+
+
+
 //----------ex1----------
 Crop tomato = new Crop("Tomatos");
 tomato.Water();
@@ -15,14 +22,22 @@ tomato.Harvest();
 Console.WriteLine(tomato.currentStage);
 Console.WriteLine();
 
+
+
+
+
 //----------ex2--------
 Farm farm = new Farm("Abcd", 6432, 234);
 Console.WriteLine(farm.CalculateDensity());
 farm.AddAnimals(345);
 Console.WriteLine( farm.CalculateDensity() );
 Console.WriteLine();
-//--------------ex3-----
 
+
+
+
+
+//--------------ex3-----
 
 Book book = new Book("War and Peace", "Leo Tolstoy", 1869);
 
@@ -39,6 +54,10 @@ Console.WriteLine(book.GetAuthor()); // Outputs "Leo Tolstoy"
 Console.WriteLine(book.GetYear()); // Outputs 1877
 Console.WriteLine();
 Console.WriteLine();
+
+
+
+
 //----------ex4----
 
 Product product = new Product("Apple", 0.99, 10);
@@ -56,6 +75,10 @@ Console.WriteLine(product.GetPrice()); // Outputs 1.49
 Console.WriteLine(product.GetQuantity()); // Outputs 20
 Console.WriteLine();
 Console.WriteLine();
+
+
+
+
 
 //------------ex5----
 
@@ -87,6 +110,9 @@ Console.WriteLine(animal.IsSpayedOrNeutered()); // Outputs false
 Console.WriteLine();
 Console.WriteLine();
 
+
+
+
 //-------------ex6----
 Calculator calculator = new Calculator();
 Console.WriteLine(calculator.Add(2, 3)); // Outputs 5
@@ -97,6 +123,10 @@ Console.WriteLine(calculator.Power(2, 3)); // Outputs 8
 Console.WriteLine(calculator.SquareRoot(9)); // Outputs 3
 Console.WriteLine();
 Console.WriteLine();
+
+
+
+
 
 //-------------ex7-----
 University myUniversity = new University("My University");
@@ -117,6 +147,10 @@ Console.WriteLine(myUniversity.GetStudentCount()); // Outputs 2
 Console.WriteLine(myUniversity.GetFacultyCount()); // Outputs 2
 Console.WriteLine();
 Console.WriteLine();
+
+
+
+
 
 //------------ex8-----
 College A = new College();
