@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using OOPAdvanced.ex2;
 using OOPAdvanced.ex3;
 using OOPAdvanced.ex4;
+using OOPAdvanced.ex5;
 
 namespace OOPAdvanced
 {
@@ -104,6 +105,21 @@ namespace OOPAdvanced
             Console.WriteLine(developer.CalculateBonus()); // Outputs 6000
             
             Console.WriteLine(manager.GetContactInfo()); // Outputs "Name: John Doe, Age: 35, Department: IT, Email: john.d
+
+            //Ex 5
+            ex5.BankAccount account1 = new ex5.BankAccount("123456", "John Doe", 1000);
+            ex5.BankAccount account2 = new ex5.BankAccount("654321", "Jane Smith", 2000);
+
+            account1.Deposit(500);
+            account2.Withdraw(1000);
+
+            Console.WriteLine(account1.Balance); // Outputs 1500
+            Console.WriteLine(account2.Balance); // Outputs 1000
+            
+            Console.WriteLine(account1.GetInterest()); // Outputs 15
+            Console.WriteLine(account2.GetInterest()); // Outputs 20
+            
+            Console.WriteLine(Bank.NumAccounts); // Outputs 2
         }
     }
 }
