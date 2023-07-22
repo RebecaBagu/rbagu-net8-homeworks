@@ -9,10 +9,12 @@
     <None Remove="ex1\" />
     <None Remove="ex2\" />
     <None Remove="ex3\" />
+    <None Remove="ex4\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ex1\" />
     <Folder Include="ex2\" />
     <Folder Include="ex3\" />
+    <Folder Include="ex4\" />
   </ItemGroup>
 </Project>

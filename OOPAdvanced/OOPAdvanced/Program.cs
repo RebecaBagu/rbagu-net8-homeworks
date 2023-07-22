@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using OOPAdvanced.ex2;
 using OOPAdvanced.ex3;
+using OOPAdvanced.ex4;
 
 namespace OOPAdvanced
 {
@@ -94,6 +95,15 @@ namespace OOPAdvanced
             }
 
             Console.WriteLine("Total perimeter: " + totalPerimeter + " inches"); // Outputs "Total perimeter: 122,26548245744 inches"
+
+            //Ex 4
+            Manager manager = new Manager("John Doe", 35, 50000, Department.IT);
+            Developer developer = new Developer("Jane Smith", 28, 30000, new List<string> { "C#", "JavaScript" }, false);
+
+            Console.WriteLine(manager.CalculateBonus()); // Outputs 5000
+            Console.WriteLine(developer.CalculateBonus()); // Outputs 6000
+            
+            Console.WriteLine(manager.GetContactInfo()); // Outputs "Name: John Doe, Age: 35, Department: IT, Email: john.d
         }
     }
 }
