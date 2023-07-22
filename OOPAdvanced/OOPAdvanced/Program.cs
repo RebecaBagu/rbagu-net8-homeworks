@@ -4,6 +4,7 @@ using OOPAdvanced.ex2;
 using OOPAdvanced.ex3;
 using OOPAdvanced.ex4;
 using OOPAdvanced.ex5;
+using OOPAdvanced.ex6;
 
 namespace OOPAdvanced
 {
@@ -62,11 +63,11 @@ namespace OOPAdvanced
             Console.WriteLine(book.GetAuthor()); // Outputs "F. Scott Fitzgerald (Revised by Jane Doe)"
 
             //Ex 3
-            Rectangle rectangle1 = new Rectangle("Green", 6, 8);
-            Rectangle rectangle2 = new Rectangle("Yellow", 10, 12);
+            ex3.Rectangle rectangle1 = new ex3.Rectangle("Green", 6, 8);
+            ex3.Rectangle rectangle2 = new ex3.Rectangle("Yellow", 10, 12);
 
-            Circle circle1 = new Circle("Purple", 3);
-            Circle circle2 = new Circle("Orange", 5);
+            ex3.Circle circle1 = new ex3.Circle("Purple", 3);
+            ex3.Circle circle2 = new ex3.Circle("Orange", 5);
 
             List<Shape> shapes = new List<Shape> { rectangle1, rectangle2, circle1, circle2 };
 
@@ -120,6 +121,24 @@ namespace OOPAdvanced
             Console.WriteLine(account2.GetInterest()); // Outputs 20
             
             Console.WriteLine(Bank.NumAccounts); // Outputs 2
+            //Ex 6
+            IShape circle = new ex6.Circle(5);
+            IShape rectangle = new ex6.Rectangle(10, 5);
+
+            Console.WriteLine(circle.CalculateArea()); // Outputs 78.5398163397448
+            Console.WriteLine(rectangle.CalculateArea()); // Outputs 50
+            
+            Console.WriteLine(circle.CalculateArea(MeasurementUnit.Feet)); // Outputs "Area: 78.5398163397448 square feet"
+            Console.WriteLine(rectangle.CalculateArea(MeasurementUnit.Feet)); // Outputs "Area: 50 square meters"
+
+            IColor circleColor = (IColor)circle;
+            circleColor.Color = "Red";
+
+            IColor rectangleColor = (IColor)rectangle;
+            rectangleColor.Color = "Blue";
+
+            Console.WriteLine(circleColor.Color); // Outputs "Red"
+            Console.WriteLine(rectangleColor.Color); // Outputs "Blue"
         }
     }
 }
