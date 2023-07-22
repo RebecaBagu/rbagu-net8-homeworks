@@ -5,6 +5,7 @@ using OOPAdvanced.ex3;
 using OOPAdvanced.ex4;
 using OOPAdvanced.ex5;
 using OOPAdvanced.ex6;
+using OOPAdvanced.ex7;
 
 namespace OOPAdvanced
 {
@@ -139,6 +140,26 @@ namespace OOPAdvanced
 
             Console.WriteLine(circleColor.Color); // Outputs "Red"
             Console.WriteLine(rectangleColor.Color); // Outputs "Blue"
+
+            //Ex 7
+            Hotel hotel = new Hotel(1000000, 250000);
+            Floor floor1 = new Floor(1);
+            Room room1 = new StandardRoom(1, 1);
+            floor1.AddRoom(room1);
+            Room room2 = new StandardRoom(1, 2);
+            floor1.AddRoom(room2);
+            Room room3 = new PenthouseRoom(2, 1);
+            floor1.AddRoom(room3);
+            Floor floor2 = new Floor(2);
+            Room room4 = new PenthouseRoom(1, 1);
+            floor2.AddRoom(room4);
+            Room room5 = new PenthouseRoom(2, 1);
+            floor2.AddRoom(room5);
+            hotel.AddFloor(floor1);
+            hotel.AddFloor(floor2);
+
+            Console.WriteLine(hotel.GetArea(AreaMeasurementUnit.SquaredMeters));
+            Console.WriteLine(room1.GetArea(AreaMeasurementUnit.SquaredMeters));
         }
     }
 }
