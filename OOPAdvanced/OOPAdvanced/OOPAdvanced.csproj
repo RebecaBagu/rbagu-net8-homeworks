@@ -7,8 +7,10 @@
 
   <ItemGroup>
     <None Remove="ex1\" />
+    <None Remove="ex2\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ex1\" />
+    <Folder Include="ex2\" />
   </ItemGroup>
 </Project>
