@@ -1,0 +1,145 @@
+--EX1
+
+INSERT INTO Addresses
+VALUES ('Independentei', 43, 'Iasi');
+INSERT INTO Addresses
+VALUES ('Stefan', 15, 'Iasi');
+INSERT INTO Addresses
+VALUES ('Zorilor', 34, 'Brasov');
+INSERT INTO Addresses
+VALUES ('Independentei', 65, 'Bucuresti');
+INSERT INTO Addresses
+VALUES ('Eroilor', 32, 'Brasov');
+
+SELECT * from Customers
+
+INSERT INTO Customers
+VALUES ('Ana', 25, 4);
+INSERT INTO Customers
+VALUES ('Calin', 40, 5);
+INSERT INTO Customers
+VALUES ('Andrei', 32, 6);
+INSERT INTO Customers
+VALUES ('Rebeca', 25, 7);
+INSERT INTO Customers
+VALUES ('Bianca', 50, 8);
+
+INSERT INTO Orders
+VALUES ('First order for Calin', 5);
+INSERT INTO Orders
+VALUES ('First order for Andrei', 6);
+INSERT INTO Orders
+VALUES ('Second order for Calin', 5);
+INSERT INTO Orders
+VALUES ('First order for Bianca', 8);
+INSERT INTO Orders
+VALUES ('First order for Ana', 4);
+
+INSERT INTO Products
+VALUES ('Book about flowers');
+INSERT INTO Products
+VALUES ('Book about dogs');
+INSERT INTO Products
+VALUES ('Book about sun');
+INSERT INTO Products
+VALUES ('Book about stars');
+INSERT INTO Products
+VALUES ('Book about gardening');
+
+SELECT * from Orders;
+SELECT * from Products;
+SELECT * from Orders_Products;
+
+
+INSERT INTO Orders_Products
+VALUES (6,5);
+INSERT INTO Orders_Products
+VALUES (6,9);
+INSERT INTO Orders_Products
+VALUES (7,8);
+INSERT INTO Orders_Products
+VALUES (8,7);
+INSERT INTO Orders_Products
+VALUES (9,6);
+INSERT INTO Orders_Products
+VALUES (10,6);
+
+--EX2
+SELECT * FROM Customers
+WHERE Customers.Age>15;
+
+--EX3
+SELECT COUNT(Addresses.Id) AS 'No of Addresses' from Addresses;
+
+--EX4
+SELECT * from Products
+
+UPDATE Products
+SET Name='Pen'
+Where Id=1;
+UPDATE Products
+SET Name='Cup'
+Where Id=2;
+UPDATE Products
+SET Name='Flower'
+Where Id=3;
+UPDATE Products
+SET Name='Mouse'
+Where Id=4;
+UPDATE Products
+SET Name='Laptop'
+Where Id=5;
+UPDATE Products
+SET Name='Phone'
+Where Id=6;
+UPDATE Products
+SET Name='Table'
+Where Id=7;
+UPDATE Products
+SET Name='Book'
+Where Id=8;
+UPDATE Products
+SET Name='Book about C#'
+Where Id=9;
+
+--EX5
+ALTER TABLE Products
+ADD Price INT;
+
+--EX6
+UPDATE Products
+SET Price=5
+Where Id=1;
+UPDATE Products
+SET Price=10
+Where Id=2;
+UPDATE Products
+SET Price=15
+Where Id=3;
+UPDATE Products
+SET Price=20
+Where Id=4;
+UPDATE Products
+SET Price=25
+Where Id=5;
+UPDATE Products
+SET Price=30
+Where Id=6;
+UPDATE Products
+SET Price=35
+Where Id=7;
+UPDATE Products
+SET Price=40
+Where Id=8;
+UPDATE Products
+SET Price=45
+Where Id=9;
+
+--EX7
+SELECT * FROM Customers 
+LEFT JOIN Orders ON Customers.Id = Orders.CustomerId;
+
+--EX8
+SELECT Name, Details, StreetName, StreetNumber, City FROM Customers 
+LEFT JOIN Orders ON Customers.Id = Orders.CustomerId
+LEFT JOIN Addresses ON AddressId=Addresses.Id;
