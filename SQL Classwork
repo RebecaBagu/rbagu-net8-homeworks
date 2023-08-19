@@ -1,0 +1,86 @@
+CREATE DATABASE ZooManagement;
+CREATE TABLE TicketValidity
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Validity VARCHAR(150)
+);
+
+INSERT INTO TicketValidity
+VALUES('One day');
+INSERT INTO TicketValidity
+VALUES('One week');
+INSERT INTO TicketValidity
+VALUES('One month');
+
+CREATE TABLE TicketType
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Type VARCHAR(150)
+);
+
+INSERT INTO TicketType
+VALUES('Adult');
+INSERT INTO TicketType
+VALUES('Elder');
+INSERT INTO TicketType
+VALUES('Child');
+
+CREATE TABLE Tickets
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    PurchaseDate DATE,
+    TypeId INT REFERENCES TicketType(Id),
+    ValidityId INT REFERENCES TicketValidity(Id)
+);
+
+CREATE TABLE Visitors
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(150),
+    Age INT
+);
+
+CREATE TABLE VisitorsTickets
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    TicketId INT REFERENCES Tickets(Id),
+    VisitorsId INT REFERENCES Visitors(Id)
+);
+
+CREATE TABLE Cage
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(150),
+    Location VARCHAR(150)
+);
+
+CREATE TABLE Animals
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(150),
+    Species VARCHAR(150),
+    Age INT,
+    CageId INT REFERENCES Cage(Id)
+);
+
+CREATE TABLE CareTakers
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name VARCHAR(150),
+    CageId INT REFERENCES Cage(Id)
+);
+
+
+CREATE TABLE TicketPrice
+(
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ValidityId INT REFERENCES TicketValidity(Id),
+    TypeId INT REFERENCES TicketType(Id),
+    Price INT
+);
+
+
+SELECT COUNT(Animals.Id) from Animals;
+
+SELECT  Species, COUNT(Animals.Id) from Animals
+GROUP BY Animals.Species ;

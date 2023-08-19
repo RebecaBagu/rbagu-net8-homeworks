@@ -1,0 +1,183 @@
+CREATE DATABASE LibrariesManagement;
+
+USE LibrariesManagement;
+
+CREATE TABLE Libraries
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    Name VARCHAR(50),
+    StreetName VARCHAR(50),
+    City VARCHAR(50)
+);
+
+CREATE TABLE Librarians
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    Name VARCHAR(30),
+    HireDate Date,
+    IsOnHoliday VARCHAR(3),
+    LibraryId INT REFERENCES Libraries(Id)
+);
+
+CREATE TABLE Books
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    Title VARCHAR(50),
+    AuthorFirstName VARCHAR(30),
+    AuthorLastName VARCHAR(30),
+    Type VARCHAR(10), -- crime, fantasy, horror, adventure
+);
+
+CREATE TABLE Books_Libraries
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    BookId INT REFERENCES Books(Id),
+    LibraryId INT REFERENCES Libraries(Id)
+);
+
+CREATE TABLE Sales
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    NumberOfCopies INT,
+    LibraryId INT REFERENCES Libraries(Id),
+    LibrarianId INT REFERENCES Librarians(Id)
+);
+
+CREATE TABLE Books_Sales
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    BookId INT REFERENCES Books(Id),
+    SalesId INT REFERENCES Sales(Id)
+);
+
+--EX1
+
+CREATE TABLE BookType
+(
+  Id INT IDENTITY(1, 1) PRIMARY KEY,
+  Type VARCHAR(20)  
+)
+----
+
+ALTER TABLE Books
+DROP COLUMN Type;
+
+ALTER TABLE Books
+ADD Type INT REFERENCES BookType(Id);
+
+INSERT Into BookType
+VALUES('crime');
+INSERT Into BookType
+VALUES('fantasy');
+INSERT Into BookType
+VALUES('horror');
+INSERT Into BookType
+VALUES('adventure');
+-----
+
+CREATE TABLE Authors
+(
+    Id INT IDENTITY(1, 1) PRIMARY KEY,
+    FirstName VARCHAR(30),
+    LastName VARCHAR(30),
+    Email VARCHAR(30),
+    BookId int REFERENCES Books(Id)
+)
+
+ALTER TABLE Books
+DROP COLUMN AuthorFirstName;
+
+ALTER TABLE Books
+DROP COLUMN AuthorLastName;
+
+ALTER TABLE Books
+ADD  AuthorId INT REFERENCES Authors(Id)
+-----
+
+ALTER TABLE Librarians
+ALTER COLUMN IsOnHoliday BIT;
+
+--EX2
+SELECT Librarians.Name, Libraries.Name FROM Librarians 
+LEFT JOIN Libraries ON Librarians.LibraryId=Libraries.Id 
+ORDER BY Librarians.Name , Libraries.Name DESC   ;
+
+--EX3
+UPDATE Libraries SET StreetName= CONCAT('STR ', StreetName) ;
+
+select * from Libraries;
+--EX4
+SELECT Authors.Email from Authors  
+INNER JOIN  Books ON Authors.BookId=Books.Id
+GROUP BY Authors.Email 
+HAVING COUNT(*)>=3
+
+--EX5
+SELECT  TOP 1 Libraries.Name, Books.Title from Libraries 
+INNER JOIN  Books ON Libraries.Id=Books.Id
+INNER JOIN Books_Sales ON Books.Id=Books_Sales.BookId
+INNER JOIN Sales ON Books_Sales.SalesId=Sales.Id
+ORDER BY Sales.NumberOfCopies DESC;
+
+--EX6
+SELECT * FROM Librarians 
+Where IsOnHoliday=0 AND Librarians.HireDate< DateAdd(year, -5 , GETDATE());
+
+--EX7
+GO
+CREATE PROCEDURE NoOfBooksInLibraries
+(
+    @Book VARCHAR(30)
+)
+AS
+SELECT COUNT(*) from Books
+JOIN Books_Libraries ON Books.Id= Books_Libraries.BookId
+Where Books.Title= @Book
+
+GO
+exec NoOfBooksInLibraries 'Harry Potter';
+
+exec NoOfBooksInLibraries 'Povestea celor doua orase';
+
+exec NoOfBooksInLibraries 'Crima si pedeapsa';
+
+--EX8
+GO
+CREATE FUNCTION dbo.NoOfCopiesSold
+(
+    @Email VARCHAR(30)
+)
+RETURNS TABLE
+AS
+    RETURN SELECT Sales.NumberOfCopies AS NumberOfCoiesSold, Books.Title AS BookTitle FROM Authors
+   Join Books ON Authors.Id=Books.AuthorId
+    JOIN Books_Sales ON Books.Id=Books_Sales.BookId
+    JOIN Sales ON Books_Sales.SalesId=Sales.Id
+    Where Authors.Email= @Email
+GO
+
+select * from  dbo.NoOfCopiesSold('am@gmail.com');
+select * from NoOfCopiesSold('Andr@gamil.com');
+
+--EX9
+DROP TRIGGER NewLibrarian;
+GO
+CREATE TRIGGER NewLibrarian 
+On Librarians
+AFTER INSERT
+AS
+BEGIN
+    if ((select LibraryId from inserted) is null)
+        UPDATE Librarians SET LibraryId = 1 WHERE Id = (select id from inserted);
+END
+GO
+
+--EX10
+BEGIN TRANSACTION
+INSERT INTO Sales VALUES(3,1,1)
+SAVE TRANSACTION NewSale
+INSERT INTO Books_Sales VALUES (1,3)
+SELECT * FROM Books_Sales
+ROLLBACK TRANSACTION NewSale
+COMMIT
+SELECT * FROM Books_Sales
