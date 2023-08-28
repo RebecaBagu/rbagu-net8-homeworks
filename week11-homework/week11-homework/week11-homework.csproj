@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <RootNamespace>week11_homework</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Ex4\" />
+    <None Remove="Ex5\" />
+    <None Remove="Ex7\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ex4\" />
+    <Folder Include="Ex5\" />
+    <Folder Include="Ex7\" />
+  </ItemGroup>
+</Project>
